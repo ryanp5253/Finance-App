@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance Tracker Premium</title>
+  <!-- Link ke manifest PWA -->
+  <link rel="manifest" href="manifest.json">
+  <!-- Link ke Google Fonts: Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Link ke file CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Panel Mengambang Header dengan Shake-to-Reveal Balance -->
+  <header class="floating-header">
+    <div class="header-content">
+      <h1 class="app-title">Finance Tracker Premium</h1>
+      <div class="balance-card" data-shake-reveal>
+        <h2>Saldo</h2>
+        <p class="balance-amount">Rp ****</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigasi Utama dengan Transisi Halaman Animasi -->
+  <main class="page-transition">
+    <!-- Dashboard: Kartu 3D untuk Ringkasan Keuangan -->
+    <section id="dashboard" class="section modular-panel">
+      <div class="card card-balance">
+        <header class="card-header">
+          <h2>Ringkasan Keuangan</h2>
+        </header>
+        <div class="card-content">
+          <div class="balance-item">
+            <h3>Saldo Saat Ini</h3>
+            <p class="amount">Rp 0</p>
+          </div>
+          <div class="balance-item">
+            <h3>Pendapatan</h3>
+            <p class="amount">Rp 0</p>
+          </div>
+          <div class="balance-item">
+            <h3>Pengeluaran</h3>
+            <p class="amount">Rp 0</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Transaksi: Form Input & Daftar Transaksi -->
+    <section id="transaksi" class="section modular-panel">
+      <div class="card card-transactions">
+        <header class="card-header">
+          <h2>Transaksi</h2>
+          <button class="collapse-toggle" aria-label="Collapse transaksi">–</button>
+        </header>
+        <div class="card-body collapsible">
+          <!-- Form Input Transaksi -->
+          <form id="form-transaksi" class="transaction-form">
+            <div class="form-group">
+              <label for="jenis-transaksi">Jenis Transaksi</label>
+              <select id="jenis-transaksi" name="jenis-transaksi" required>
+                <option value="">Pilih</option>
+                <option value="pendapatan">Pendapatan</option>
+                <option value="pengeluaran">Pengeluaran</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="jumlah">Jumlah (Rp)</label>
+              <input type="number" id="jumlah" name="jumlah" required>
+            </div>
+            <div class="form-group">
+              <label for="kategori">Kategori</label>
+              <input type="text" id="kategori" name="kategori" placeholder="Contoh: Makanan, Gaji" required>
+            </div>
+            <div class="form-group">
+              <label for="tanggal">Tanggal</label>
+              <input type="date" id="tanggal" name="tanggal" required>
+            </div>
+            <div class="form-group">
+              <label for="deskripsi">Deskripsi</label>
+              <textarea id="deskripsi" name="deskripsi" placeholder="Catatan transaksi" required></textarea>
+              <!-- Tombol Input Suara -->
+              <button type="button" class="voice-input" aria-label="Input suara">🎤</button>
+            </div>
+            <button type="submit" class="btn-submit">Tambah Transaksi</button>
+          </form>
+          <!-- Daftar Transaksi dalam Bentuk Kartu dengan swipe-to-edit/hold-to-delete -->
+          <ul id="list-transaksi" class="transaction-list">
+            <!-- Item transaksi akan dimuat secara dinamis di sini -->
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Analitik: Grafik Real-time & Insight AI -->
+    <section id="analitik" class="section modular-panel">
+      <div class="card card-analytics">
+        <header class="card-header">
+          <h2>Analitik Keuangan</h2>
+          <button class="collapse-toggle" aria-label="Collapse analitik">–</button>
+        </header>
+        <div class="card-body collapsible">
+          <canvas id="grafik-keuangan" class="animated-chart"></canvas>
+          <div class="ai-forecast">
+            <p><strong>Prediksi AI:</strong> Insight keuangan akan muncul di sini.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pengaturan: Tema, Keamanan & Preferensi -->
+    <section id="pengaturan" class="section modular-panel">
+      <div class="card card-settings">
+        <header class="card-header">
+          <h2>Pengaturan</h2>
+          <button class="collapse-toggle" aria-label="Collapse pengaturan">–</button>
+        </header>
+        <div class="card-body collapsible">
+          <form id="form-pengaturan" class="settings-form">
+            <div class="form-group">
+              <label for="mode-tema">Mode Tema</label>
+              <select id="mode-tema" name="mode-tema">
+                <option value="terang">Terang</option>
+                <option value="gelap">Gelap</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="keamanan">Keamanan Aplikasi</label>
+              <select id="keamanan" name="keamanan">
+                <option value="pin">PIN</option>
+                <option value="sidikjari">Sidik Jari</option>
+                <option value="incognito">Mode Incognito</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-submit">Simpan Pengaturan</button>
+          </form>
+          <div class="pwa-info">
+            <p>Aplikasi ini mendukung mode offline (PWA).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating Action Button (FAB) dengan Ripple Animation untuk Menambah Transaksi -->
+  <button class="fab" aria-label="Tambah Transaksi">
+    <span class="fab-icon">+</span>
+  </button>
+
+  <!-- Navigasi Bawah dengan Floating Labels -->
+  <nav class="bottom-nav">
+    <ul>
+      <li><a href="#dashboard"><span class="icon">🏠</span><span class="label">Beranda</span></a></li>
+      <li><a href="#transaksi"><span class="icon">💰</span><span class="label">Transaksi</span></a></li>
+      <li><a href="#analitik"><span class="icon">📊</span><span class="label">Analitik</span></a></li>
+      <li><a href="#pengaturan"><span class="icon">⚙️</span><span class="label">Pengaturan</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- Skrip JavaScript dan PWA akan ditambahkan pada file terpisah -->
+  <script src="script.js"></script>
+</body>
+</html>
